@@ -1,0 +1,23 @@
+{
+    "name": "Fomoxa.Rpc.Editor",
+    "rootNamespace": "Fomoxa.Rpc.Editor",
+    "references": [
+        "Fomoxa.Rpc",
+        "Fomoxa.Networking",
+        "Fomoxa.Unity.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Fomoxa.Attributes.dll",
+        "Fomoxa.Net.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

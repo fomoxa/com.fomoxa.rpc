@@ -1,0 +1,17 @@
+{
+    "name": "Fomoxa.Rpc",
+    "rootNamespace": "Fomoxa.Rpc",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Fomoxa.Attributes.dll",
+        "Fomoxa.Net.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}
