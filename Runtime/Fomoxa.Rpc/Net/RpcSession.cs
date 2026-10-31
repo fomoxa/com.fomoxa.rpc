@@ -40,6 +40,8 @@ namespace Fomoxa.Rpc.Net
 
         public TimeSpan WorkPoll { get; init; } = TimeSpan.FromTicks(2_000);
 
+        public TimeSpan ListenerPoll { get; init; } = TimeSpan.FromMilliseconds(10);
+
         public static WaitPolicy Default { get; } = new WaitPolicy();
 
         public Wait Plan(RpcCore core, bool netCongested, TimeSpan now)
@@ -181,12 +183,7 @@ namespace Fomoxa.Rpc.Net
             connection.Dispose();
         }
 
-        private static IReadiness? ReadinessOf(ITransport transport) => transport switch
-        {
-            IReadiness own => own,
-            TcpTransport tcp => new SocketReadiness(tcp.Socket),
-            _ => null,
-        };
+        private static IReadiness? ReadinessOf(ITransport transport) => ShellReadiness.For(transport);
 
         internal static TcpTransport ConnectTcp(string host, int port, TimeSpan timeout)
         {

@@ -1,0 +1,4 @@
+fomoxac = "0.2.3"
+src = ["Models", "../Fomoxa.Rpc/SystemModels"]
+out = "FomoxaDirectoryCodecs"
+net_schema = true

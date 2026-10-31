@@ -70,6 +70,62 @@ EchoReply reply = await echo.SayAsync(new EchoRequest { Text = "hi" });
 
 `connection.Tick(now)` must run every frame; the awaited call completes inside it, on the main thread.
 
+## Running as a pod
+
+A game server that runs in a Fomoxa cluster registers with the directory through `DirectoryPod`, in the `Fomoxa.Rpc.Directory` assembly of this package. That assembly carries the directory's models, codecs and stubs, so the game's own `fomoxac` run does not see them.
+
+```csharp
+using Fomoxa.Rpc.Directory;
+
+var pod = new DirectoryPod(networkManager.ServerManager, networkManager.TimeManager, new DirectoryPodSettings
+{
+    DirectoryAddress = "directory.cluster.local",
+    Key = File.ReadAllBytes("/run/secrets/directory/pod"),
+    Address = "203.0.113.7",
+    Port = 7777,
+    Target = "pod-7",
+    Version = Application.version,
+    Region = "ap-southeast",
+    MaxPlayers = 64,
+});
+pod.OnRegistered += registration =>
+{
+    encryptedTransport.Tokens = new ConnectTokens(FomoxaRegistry.Default, registration.TicketKey);
+    encryptedTransport.Target = "pod-7";
+    networkManager.ServerManager.StartConnection(7777);
+};
+pod.Start();
+```
+
+`DirectoryPod` ticks on the network tick of the `TimeManager` and connects to the directory without blocking the frame. A console server passes its `NetworkRuntime` instead of the two managers.
+
+Registration gives the pod its id and the key that opens the tickets the directory issues for it. Start the encrypted listener after the first registration. If the directory gives the pod a new id after a reconnect (`registration.ChangedPodId`), the key changes too: stop the server, set the new `ConnectTokens`, and start it again.
+
+The pod registers again after every reconnect and sends the rooms it holds. It reports its load on the interval the directory sets: the player count, the room count, and `players / MaxPlayers`, or the value of `pod.Load` if you set it.
+
+Rooms:
+
+- `await pod.AcquireRoom(roomKey)` records a room the directory accepted. It fails with `UNAVAILABLE` while the pod is not registered and with the directory's status when the room belongs to another pod or the pod is draining. A failed call records nothing, so call it again after `OnRegistered`.
+- `pod.ReleaseRoom(roomKey)` forgets the room at once and tells the directory when the pod is registered.
+
+Draining:
+
+- `OnDrain` fires with the deadline when an operator drains the pod or when the pod asks to be drained with `RequestDrain`.
+- Move each room with `pod.Relocate(roomKey, tickets, data)`, then call `ServerManager.Transfer` for each player with the address, port and one of the tickets it returns.
+- At the deadline the pod stops the server and fires `OnDrainDeadline`. Exiting the process is up to the game or the platform.
+
+The package does not catch the stop signal. A .NET console server can hold off SIGTERM and drain:
+
+```csharp
+using var stopping = PosixSignalRegistration.Create(PosixSignal.SIGTERM, context =>
+{
+    context.Cancel = true;
+    _ = pod.RequestDrain();
+});
+```
+
+For a Unity player, have the platform tell the game before it stops the process, for example with a Kubernetes `preStop` hook that sends the game a request, and call `RequestDrain` there. Set the grace period of the platform longer than the drain deadline of the directory.
+
 ## Source
 
 The fRPC code in this package is copied from the fRPC repository at a pinned commit. Change it there, not here.

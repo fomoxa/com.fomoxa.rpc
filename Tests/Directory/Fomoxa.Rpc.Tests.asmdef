@@ -1,0 +1,29 @@
+{
+    "name": "Fomoxa.Rpc.Tests",
+    "rootNamespace": "Fomoxa.Rpc.Tests",
+    "references": [
+        "Fomoxa.Rpc",
+        "Fomoxa.Rpc.Directory",
+        "Fomoxa.Networking",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Fomoxa.Attributes.dll",
+        "Fomoxa.Net.dll",
+        "BouncyCastle.Cryptography.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

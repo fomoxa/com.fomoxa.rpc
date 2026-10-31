@@ -18,6 +18,7 @@ namespace Fomoxa.Rpc
             Ctx = ctx;
             Session = session;
             Permissions = new SortedSet<string>(session?.Permissions ?? Array.Empty<string>());
+            Clock = () => now;
         }
 
         public CallId Call { get; }
@@ -26,11 +27,15 @@ namespace Fomoxa.Rpc
 
         public TimeSpan Now { get; }
 
+        public Func<TimeSpan> Clock { get; init; }
+
         public TimeSpan? Deadline { get; set; }
 
         public Ctx Ctx { get; set; }
 
         public Identity? Session { get; }
+
+        public long? Connection { get; init; }
 
         public SortedSet<string> Permissions { get; set; }
 
@@ -51,6 +56,9 @@ namespace Fomoxa.Rpc
             }
             return (uint)Math.Min(uint.MaxValue, (long)left.TotalMilliseconds);
         }
+
+        public CallOptions Onward() =>
+            Onward(Clock()) ?? CallOptions.Within(TimeSpan.Zero).Traced(Ctx.TraceId);
 
         public CallOptions? Onward(TimeSpan now)
         {
@@ -356,11 +364,13 @@ namespace Fomoxa.Rpc
     {
         private readonly Responder responder;
         private readonly IRpcCodec<T> codec;
+        private readonly IReadOnlyList<DetailCodec> details;
 
-        internal Reply(Responder responder, IRpcCodec<T> codec)
+        internal Reply(Responder responder, IRpcCodec<T> codec, IReadOnlyList<DetailCodec> details)
         {
             this.responder = responder;
             this.codec = codec;
+            this.details = details;
         }
 
         public CallContext Context => responder.Context;
@@ -369,20 +379,24 @@ namespace Fomoxa.Rpc
 
         public bool IsAlive => responder.IsAlive;
 
+        public CallOptions Onward() => responder.Context.Onward();
+
         public bool Respond(T value) => responder.Respond(codec.Encode(value));
 
-        public bool Fail(Status status) => responder.Fail(status);
+        public bool Fail(Status status) => responder.Fail(status.EncodedWith(details));
     }
 
     public sealed class ItemStream<T>
     {
         private readonly Responder responder;
         private readonly IRpcCodec<T> codec;
+        private readonly IReadOnlyList<DetailCodec> details;
 
-        internal ItemStream(Responder responder, IRpcCodec<T> codec)
+        internal ItemStream(Responder responder, IRpcCodec<T> codec, IReadOnlyList<DetailCodec> details)
         {
             this.responder = responder;
             this.codec = codec;
+            this.details = details;
         }
 
         public CallContext Context => responder.Context;
@@ -393,8 +407,10 @@ namespace Fomoxa.Rpc
 
         public SendResult Send(T item) => responder.Send(codec.Encode(item));
 
+        public CallOptions Onward() => responder.Context.Onward();
+
         public bool End() => responder.End();
 
-        public bool Fail(Status status) => responder.Fail(status);
+        public bool Fail(Status status) => responder.Fail(status.EncodedWith(details));
     }
 }

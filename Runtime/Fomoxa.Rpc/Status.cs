@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Fomoxa.Rpc
 {
@@ -46,22 +47,49 @@ namespace Fomoxa.Rpc
         public static Status Unimplemented(uint requestId) =>
             new Status(StatusCode.Unimplemented, $"no handler for request type 0x{requestId:X8}");
 
-        public static Status InvalidArgument(string message) => new Status(StatusCode.InvalidArgument, message);
+        public static Status InvalidArgument(string message, object? detail = null) =>
+            new Status(StatusCode.InvalidArgument, message) { Details = detail };
 
-        public static Status Unauthenticated(string message) => new Status(StatusCode.Unauthenticated, message);
+        public static Status Unauthenticated(string message, object? detail = null) =>
+            new Status(StatusCode.Unauthenticated, message) { Details = detail };
 
-        public static Status PermissionDenied(string message) => new Status(StatusCode.PermissionDenied, message);
+        public static Status PermissionDenied(string message, object? detail = null) =>
+            new Status(StatusCode.PermissionDenied, message) { Details = detail };
 
-        public static Status ResourceExhausted(string message) => new Status(StatusCode.ResourceExhausted, message);
+        public static Status ResourceExhausted(string message, object? detail = null) =>
+            new Status(StatusCode.ResourceExhausted, message) { Details = detail };
 
-        public static Status FailedPrecondition(string message) => new Status(StatusCode.FailedPrecondition, message);
+        public static Status FailedPrecondition(string message, object? detail = null) =>
+            new Status(StatusCode.FailedPrecondition, message) { Details = detail };
 
         public static Status Unavailable() =>
             new Status(StatusCode.Unavailable, "the session ended before the call completed");
 
-        public static Status Internal(string message) => new Status(StatusCode.Internal, message);
+        public static Status Internal(string message, object? detail = null) =>
+            new Status(StatusCode.Internal, message) { Details = detail };
 
         public Status WithDetails(uint detailsId, byte[] details) => this with { DetailsId = detailsId, RawDetails = details, Details = null };
+
+        public Status WithDetail(object detail) =>
+            this with { DetailsId = 0, RawDetails = Array.Empty<byte>(), Details = detail ?? throw new ArgumentNullException(nameof(detail)) };
+
+        internal bool HasUnencodedDetail => DetailsId == 0 && Details != null;
+
+        internal Status EncodedWith(IReadOnlyList<DetailCodec> codecs)
+        {
+            if (!HasUnencodedDetail)
+            {
+                return this;
+            }
+            foreach (var codec in codecs)
+            {
+                if (codec.TryEncode(Details!, out var body))
+                {
+                    return this with { DetailsId = codec.MessageId, RawDetails = body };
+                }
+            }
+            return this;
+        }
 
         public bool IsRetryable => Code == StatusCode.Unavailable || Code == StatusCode.ResourceExhausted;
 

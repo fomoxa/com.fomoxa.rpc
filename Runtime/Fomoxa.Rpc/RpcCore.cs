@@ -41,6 +41,7 @@ namespace Fomoxa.Rpc
         BodyTooLarge,
         CtxTooLarge,
         CallIdExhausted,
+        DeadlineExceeded,
     }
 
     public readonly struct CallResult
@@ -161,6 +162,8 @@ namespace Fomoxa.Rpc
         private readonly Chain chain = new Chain();
         private bool ready;
         private bool finished;
+        private long seenTicks = long.MinValue;
+        private Func<TimeSpan> clock;
 
         public RpcCore(Registry registry, Role role, RpcConfig? config = null)
         {
@@ -168,6 +171,7 @@ namespace Fomoxa.Rpc
             this.config = (config ?? new RpcConfig()).Clone();
             ids = new CallIdAllocator(role);
             outbox = new Outbox(this.config.MaxCallQueue, this.config.MaxConnectionQueue);
+            clock = () => TimeSpan.FromTicks(Interlocked.Read(ref seenTicks));
             if (registry.Authentication is uint authentication)
             {
                 chain.Add(new Authorization(registry.Exempt.Append(authentication)));
@@ -175,6 +179,8 @@ namespace Fomoxa.Rpc
         }
 
         public Identity? Identity { get; private set; }
+
+        public long? Connection { get; set; }
 
         public Role Role => ids.Role;
 
@@ -221,8 +227,19 @@ namespace Fomoxa.Rpc
 
         public void OnReady() => ready = true;
 
+        public void SetClock(Func<TimeSpan> clock) => this.clock = clock;
+
+        private void Observe(TimeSpan now)
+        {
+            if (now.Ticks > Interlocked.Read(ref seenTicks))
+            {
+                Interlocked.Exchange(ref seenTicks, now.Ticks);
+            }
+        }
+
         public CallResult Call(uint requestId, ReadOnlySpan<byte> body, CallOptions options, TimeSpan now)
         {
+            Observe(now);
             if (!ready)
             {
                 return CallResult.Failed(CallError.NotReady);
@@ -248,6 +265,10 @@ namespace Fomoxa.Rpc
             var call = allocated.Value;
 
             var budget = options.Budget(method, config);
+            if (budget.HasValue && budget.Value <= TimeSpan.Zero)
+            {
+                return CallResult.Failed(CallError.DeadlineExceeded);
+            }
             var ctx = new Ctx
             {
                 DeadlineMs = budget.HasValue ? MillisOf(budget.Value) : 0,
@@ -285,6 +306,7 @@ namespace Fomoxa.Rpc
 
         public bool OnMessage(uint messageId, ReadOnlyMemory<byte> payload, TimeSpan now)
         {
+            Observe(now);
             if (registry.IsPlain(messageId))
             {
                 return false;
@@ -330,6 +352,7 @@ namespace Fomoxa.Rpc
 
         public void Tick(TimeSpan now)
         {
+            Observe(now);
             ExpirePending(now);
             ApplyCommands(now);
             CheckTasks();
@@ -420,7 +443,7 @@ namespace Fomoxa.Rpc
                 limit = declared.HasValue && declared.Value < own ? declared : own;
             }
 
-            var context = new CallContext(call, method, now, ctx, Identity) { Deadline = limit };
+            var context = new CallContext(call, method, now, ctx, Identity) { Deadline = limit, Clock = clock, Connection = Connection };
             int entered = chain.Inbound(context, out var rejection);
             if (rejection != null)
             {
@@ -778,10 +801,12 @@ namespace Fomoxa.Rpc
         }
 
         private Status Sendable(Status status) =>
-            status.DetailsId == 0 || registry.DeclaresDetails(status.DetailsId)
-                ? status
-                : Status.Internal(
-                    $"{status.Name} \"{status.Message}\" carried details model 0x{status.DetailsId:X8}, which the registry does not declare");
+            status.HasUnencodedDetail
+                ? Status.Internal($"{status.Name} \"{status.Message}\" carried a detail model that no detail codec of the method encodes")
+                : status.DetailsId == 0 || registry.DeclaresDetails(status.DetailsId)
+                    ? status
+                    : Status.Internal(
+                        $"{status.Name} \"{status.Message}\" carried details model 0x{status.DetailsId:X8}, which the registry does not declare");
 
         private Outgoing BodyFrame(CallId call, Kind kind, uint messageId, ReadOnlySpan<byte> body) =>
             new Outgoing(messageId, Wire.Encode(new Header(kind, call), null, body));

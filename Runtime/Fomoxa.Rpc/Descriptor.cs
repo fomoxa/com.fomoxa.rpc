@@ -272,30 +272,30 @@ namespace Fomoxa.Rpc
         public RegistryBuilder Serve<TRequest, TResponse>(
             UnaryMethod<TRequest, TResponse> method,
             Func<CallContext, TRequest, TResponse> handler) =>
-            Serve(method.Method, Decoded(method.Method, method.Request, (responder, request) =>
+            Serve(method.Method, Decoded(method.Method, method.Request, method.Details, (responder, request) =>
                 Answer.Respond(method.Response.Encode(handler(responder.Context, request)))));
 
         public RegistryBuilder Serve<TRequest, TResponse>(
             UnaryMethod<TRequest, TResponse> method,
             Action<Reply<TResponse>, TRequest> handler) =>
-            Serve(method.Method, Decoded(method.Method, method.Request, (responder, request) =>
+            Serve(method.Method, Decoded(method.Method, method.Request, method.Details, (responder, request) =>
             {
-                handler(new Reply<TResponse>(responder, method.Response), request);
+                handler(new Reply<TResponse>(responder, method.Response, method.Details), request);
                 return Answer.Later;
             }));
 
         public RegistryBuilder Serve<TRequest, TResponse>(
             UnaryMethod<TRequest, TResponse> method,
             Func<CallContext, TRequest, Task<TResponse>> handler) =>
-            Serve(method.Method, Decoded(method.Method, method.Request, (responder, request) =>
-                Answer.Await(Encoded(handler(responder.Context, request), method.Response))));
+            Serve(method.Method, Decoded(method.Method, method.Request, method.Details, (responder, request) =>
+                Answer.Await(Encoded(handler(responder.Context, request), method.Response, method.Details))));
 
         public RegistryBuilder Serve<TRequest, TItem>(
             ServerStreamMethod<TRequest, TItem> method,
             Action<ItemStream<TItem>, TRequest> handler) =>
-            Serve(method.Method, Decoded(method.Method, method.Request, (responder, request) =>
+            Serve(method.Method, Decoded(method.Method, method.Request, method.Details, (responder, request) =>
             {
-                handler(new ItemStream<TItem>(responder, method.Item), request);
+                handler(new ItemStream<TItem>(responder, method.Item, method.Details), request);
                 return Answer.Later;
             }));
 
@@ -303,7 +303,7 @@ namespace Fomoxa.Rpc
         {
             var method = authenticator.Method;
             authenticators.Add(method.Method);
-            return Serve(method.Method, Decoded(method.Method, method.Request, (responder, request) =>
+            return Serve(method.Method, Decoded(method.Method, method.Request, method.Details, (responder, request) =>
             {
                 if (responder.Context.Session != null)
                 {
@@ -405,9 +405,22 @@ namespace Fomoxa.Rpc
                 serving);
         }
 
-        private static Handler Decoded<TRequest>(Method method, IRpcCodec<TRequest> codec, Func<Responder, TRequest, Answer> run)
+        private static Handler Decoded<TRequest>(
+            Method method, IRpcCodec<TRequest> codec, IReadOnlyList<DetailCodec> details, Func<Responder, TRequest, Answer> handle)
         {
             bool parallel = method.Policy.Parallel;
+            Answer run(Responder responder, TRequest request)
+            {
+                try
+                {
+                    var answer = handle(responder, request);
+                    return answer.Kind == AnswerKind.Fail ? Answer.Fail(answer.Status!.EncodedWith(details)) : answer;
+                }
+                catch (RpcException refused)
+                {
+                    return Answer.Fail(refused.Status.EncodedWith(details));
+                }
+            }
             return (responder, body) =>
             {
                 TRequest request;
@@ -423,9 +436,19 @@ namespace Fomoxa.Rpc
             };
         }
 
-        private static Task<byte[]> Encoded<TResponse>(Task<TResponse> task, IRpcCodec<TResponse> codec) =>
+        private static Task<byte[]> Encoded<TResponse>(Task<TResponse> task, IRpcCodec<TResponse> codec, IReadOnlyList<DetailCodec> details) =>
             task.ContinueWith(
-                completed => codec.Encode(completed.GetAwaiter().GetResult()),
+                completed =>
+                {
+                    try
+                    {
+                        return codec.Encode(completed.GetAwaiter().GetResult());
+                    }
+                    catch (RpcException refused)
+                    {
+                        throw new RpcException(refused.Status.EncodedWith(details));
+                    }
+                },
                 CancellationToken.None,
                 TaskContinuationOptions.ExecuteSynchronously,
                 TaskScheduler.Default);

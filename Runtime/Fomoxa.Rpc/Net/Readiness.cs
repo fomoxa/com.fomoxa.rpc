@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
+using Fomoxa.Net.Transports;
 
 namespace Fomoxa.Rpc.Net
 {
@@ -10,6 +12,77 @@ namespace Fomoxa.Rpc.Net
         bool ReportsWritable { get; }
 
         bool WaitReady(bool writable, TimeSpan timeout, Waker waker);
+    }
+
+    public interface IListenerReadiness
+    {
+        bool WaitReady(TimeSpan timeout, Waker waker);
+    }
+
+    public static class ShellReadiness
+    {
+        private static readonly object Gate = new object();
+        private static Func<ITransport, IReadiness?>[] transports = Array.Empty<Func<ITransport, IReadiness?>>();
+        private static Func<IListenerTransport, IListenerReadiness?>[] listeners = Array.Empty<Func<IListenerTransport, IListenerReadiness?>>();
+
+        public static void RegisterTransport(Func<ITransport, IReadiness?> probe)
+        {
+            lock (Gate)
+            {
+                var grown = new Func<ITransport, IReadiness?>[transports.Length + 1];
+                transports.CopyTo(grown, 0);
+                grown[transports.Length] = probe;
+                Volatile.Write(ref transports, grown);
+            }
+        }
+
+        public static void RegisterListener(Func<IListenerTransport, IListenerReadiness?> probe)
+        {
+            lock (Gate)
+            {
+                var grown = new Func<IListenerTransport, IListenerReadiness?>[listeners.Length + 1];
+                listeners.CopyTo(grown, 0);
+                grown[listeners.Length] = probe;
+                Volatile.Write(ref listeners, grown);
+            }
+        }
+
+        public static IReadiness? For(ITransport transport)
+        {
+            switch (transport)
+            {
+                case IReadiness own:
+                    return own;
+                case TcpTransport tcp:
+                    return new SocketReadiness(tcp.Socket);
+            }
+            foreach (var probe in Volatile.Read(ref transports))
+            {
+                var found = probe(transport);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+            return null;
+        }
+
+        public static IListenerReadiness? For(IListenerTransport listener)
+        {
+            if (listener is IListenerReadiness own)
+            {
+                return own;
+            }
+            foreach (var probe in Volatile.Read(ref listeners))
+            {
+                var found = probe(listener);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+            return null;
+        }
     }
 
     public sealed class Waker : IDisposable

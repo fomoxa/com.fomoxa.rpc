@@ -112,6 +112,7 @@ namespace Fomoxa.Rpc.Net
                 CallError.BodyTooLarge => StatusCode.ResourceExhausted,
                 CallError.CtxTooLarge => StatusCode.ResourceExhausted,
                 CallError.CallIdExhausted => StatusCode.ResourceExhausted,
+                CallError.DeadlineExceeded => StatusCode.DeadlineExceeded,
                 _ => StatusCode.Internal,
             };
             return new Status(code, $"the call was refused before sending: {refusal}");

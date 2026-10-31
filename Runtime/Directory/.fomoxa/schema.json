@@ -1,0 +1,1331 @@
+{
+  "schema_version": 1,
+  "generator": "fomoxac 0.2.3",
+  "fingerprint": "sha256:7d4072ac9795edc37739680673244af7f23e76a1e51a81c8ab27a1ca171ffd83",
+  "fingerprint_u64": "0x7D4072AC9795EDC3",
+  "models": {
+    "AcquireRoom": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:ec11e4a688e79f570544d2b3de2d44efbdee22e2a15e5ff28c085842fc5fb6dc",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "RoomKey",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xF77FD4D5",
+          "fingerprint": "sha256:53eafe7049f8b58bdd90974d413fc8c53cff44df1c3f3a06018affa5cd3bc234",
+          "fingerprint_u64": "0x53EAFE7049F8B58B",
+          "prefixes": [
+            "sha256:53eafe7049f8b58bdd90974d413fc8c53cff44df1c3f3a06018affa5cd3bc234"
+          ],
+          "prefixes_u64": [
+            "0x53EAFE7049F8B58B"
+          ],
+          "fields": [
+            {
+              "name": "RoomKey",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "AllocateRequest": {
+      "source": "Models/Allocate.cs",
+      "fingerprint": "sha256:fc2c6ecc7008cecced820b6fb51ceb7578fba0486ce6a47db0efd24379495199",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "RoomKey",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Attributes",
+          "type": "Array<DirectoryLabel>",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "ApplicationData",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Tickets",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xB291A4A5",
+          "fingerprint": "sha256:0985401b6a28e9ca584ac146396c107322f5b63aebed6de2d180df98b18f65e4",
+          "fingerprint_u64": "0x0985401B6A28E9CA",
+          "prefixes": [
+            "sha256:8ded36ad0d532e3208f68e22029a37f1598fe5df060e2604b54e5dfce0bd2543",
+            "sha256:b2bc5e900f4e48fc575a9b75539eb8d4cabcdad97ebd534983d64247864922ab",
+            "sha256:eddde59c4686c2e9230e367be0f8a60352f5d9fb4e1ab13ed43635421ef00133",
+            "sha256:0dd734ab62e8098defd7d5ed000246cda1571cd6574232b76547018374d2af92",
+            "sha256:6a240aeb77eebee975c63b29896c77e2195140fa6e94f7eb4c7cfe6b78fd6ee9",
+            "sha256:0985401b6a28e9ca584ac146396c107322f5b63aebed6de2d180df98b18f65e4"
+          ],
+          "prefixes_u64": [
+            "0x8DED36AD0D532E32",
+            "0xB2BC5E900F4E48FC",
+            "0xEDDDE59C4686C2E9",
+            "0x0DD734AB62E8098D",
+            "0x6A240AEB77EEBEE9",
+            "0x0985401B6A28E9CA"
+          ],
+          "fields": [
+            {
+              "name": "RoomKey",
+              "type": "string"
+            },
+            {
+              "name": "Version",
+              "type": "string"
+            },
+            {
+              "name": "Region",
+              "type": "string"
+            },
+            {
+              "name": "Attributes",
+              "type": "Array<DirectoryLabel>"
+            },
+            {
+              "name": "ApplicationData",
+              "type": "bytes"
+            },
+            {
+              "name": "Tickets",
+              "type": "u32"
+            }
+          ]
+        }
+      }
+    },
+    "AllocateResponse": {
+      "source": "Models/Allocate.cs",
+      "fingerprint": "sha256:9a091d4ebc607c889038c6f6a81cd60bc1c5819467e8bd14b754da5d1a964737",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Address",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Port",
+          "type": "u16",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Connections",
+          "type": "Array<bytes>",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x34816436",
+          "fingerprint": "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623",
+          "fingerprint_u64": "0x77569F275B0BBEFA",
+          "prefixes": [
+            "sha256:3cede98ba13103741c54ce4116a62e36cec9b200c5f5289e6e1a60917651ae0c",
+            "sha256:8e9edcc51bc8246529c01c60f74eb2a83b6b88a71496628ef3c5240cddf05ce8",
+            "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623"
+          ],
+          "prefixes_u64": [
+            "0x3CEDE98BA1310374",
+            "0x8E9EDCC51BC82465",
+            "0x77569F275B0BBEFA"
+          ],
+          "fields": [
+            {
+              "name": "Address",
+              "type": "string"
+            },
+            {
+              "name": "Port",
+              "type": "u16"
+            },
+            {
+              "name": "Connections",
+              "type": "Array<bytes>"
+            }
+          ]
+        }
+      }
+    },
+    "DirectoryAuth": {
+      "source": "Models/Auth.cs",
+      "fingerprint": "sha256:c11e794e2df39afdc56c2fb62ea33ce06c601c47d271d1151ff6f70c66e0d553",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Role",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Key",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x21E146AA",
+          "fingerprint": "sha256:fab51d99fb04030ce9b80bef482380ef85379e7e932ea09dc2db09949e01db9b",
+          "fingerprint_u64": "0xFAB51D99FB04030C",
+          "prefixes": [
+            "sha256:74ec08046213c70adefabbf649fc9ef5863f7bbe3c65a276a7cb5f3fa6a2973c",
+            "sha256:fab51d99fb04030ce9b80bef482380ef85379e7e932ea09dc2db09949e01db9b"
+          ],
+          "prefixes_u64": [
+            "0x74EC08046213C70A",
+            "0xFAB51D99FB04030C"
+          ],
+          "fields": [
+            {
+              "name": "Role",
+              "type": "string"
+            },
+            {
+              "name": "Key",
+              "type": "bytes"
+            }
+          ]
+        }
+      }
+    },
+    "DirectoryLabel": {
+      "source": "Models/Allocate.cs",
+      "fingerprint": "sha256:1693610c862c66f563000c07ba69f99b2c0c2bbb00059fd25588953256f3126b",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Name",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Value",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xE81FF113",
+          "fingerprint": "sha256:dad9d90bedc5dc365902ecbb9ef2e67675aec5b271d09c9ffb751b24715cead5",
+          "fingerprint_u64": "0xDAD9D90BEDC5DC36",
+          "prefixes": [
+            "sha256:7df962531c9652aee13c1cc3f387c7d615a0e589605b2f4429ef90f1045f69a8",
+            "sha256:dad9d90bedc5dc365902ecbb9ef2e67675aec5b271d09c9ffb751b24715cead5"
+          ],
+          "prefixes_u64": [
+            "0x7DF962531C9652AE",
+            "0xDAD9D90BEDC5DC36"
+          ],
+          "fields": [
+            {
+              "name": "Name",
+              "type": "string"
+            },
+            {
+              "name": "Value",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "DrainOrder": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:6d4cd520813b356eb8ff28c8c3fbc3b2d25bb2ebffd74dbaaa7882a10921588e",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Deadline",
+          "type": "i64",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xB6BEFBC5",
+          "fingerprint": "sha256:ead47c2ec9d187f440542052547b742ef9a1b27a49d3d7e2078364abab440a5f",
+          "fingerprint_u64": "0xEAD47C2EC9D187F4",
+          "prefixes": [
+            "sha256:ead47c2ec9d187f440542052547b742ef9a1b27a49d3d7e2078364abab440a5f"
+          ],
+          "prefixes_u64": [
+            "0xEAD47C2EC9D187F4"
+          ],
+          "fields": [
+            {
+              "name": "Deadline",
+              "type": "i64"
+            }
+          ]
+        }
+      }
+    },
+    "DrainPod": {
+      "source": "Models/Admin.cs",
+      "fingerprint": "sha256:117b71642faa855843af5bfaddf29dfc78d59b92f6015ad1e04e6539fdfc7f7a",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "PodId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x7A6C99BE",
+          "fingerprint": "sha256:05932376c30f434e1e04daeaf5bf54d107fac9485293ba4d6e6ccc177c089211",
+          "fingerprint_u64": "0x05932376C30F434E",
+          "prefixes": [
+            "sha256:05932376c30f434e1e04daeaf5bf54d107fac9485293ba4d6e6ccc177c089211"
+          ],
+          "prefixes_u64": [
+            "0x05932376C30F434E"
+          ],
+          "fields": [
+            {
+              "name": "PodId",
+              "type": "u32"
+            }
+          ]
+        }
+      }
+    },
+    "DrainSelf": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:dbc48598b90db04a09c67a81e325cd8e9e81035325c3d6fc3065ca53ff3f6507",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [],
+      "messages": {
+        "rpc": {
+          "id": "0x19411DB3",
+          "fingerprint": "sha256:6c9c60afdb9b3d937c3c7e9515984eef5b82375f8d05170d636899bd9202aa1f",
+          "fingerprint_u64": "0x6C9C60AFDB9B3D93",
+          "prefixes": [],
+          "prefixes_u64": [],
+          "fields": []
+        }
+      }
+    },
+    "DrainWatch": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:c5c77e5e57c77947c7294358bbabab3e8872b8582a4f2a18dd316634ba7d7fed",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [],
+      "messages": {
+        "rpc": {
+          "id": "0xDE77C412",
+          "fingerprint": "sha256:403dbba8139c7d592ecf1a10a7052d4b7dfa2baa3b8009226cd47df54b01501f",
+          "fingerprint_u64": "0x403DBBA8139C7D59",
+          "prefixes": [],
+          "prefixes_u64": [],
+          "fields": []
+        }
+      }
+    },
+    "FRpcCtx": {
+      "source": "../Fomoxa.Rpc/SystemModels/FRpc.cs",
+      "fingerprint": "sha256:e0ff630037235c9f66e866365d97d8b358aa6a753bcc3a6c8f3523786031fd4b",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "DeadlineMs",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "TraceId",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x5AE3B9AC",
+          "fingerprint": "sha256:0e639d9a7ba779ae8c6ecbd3eab9df46fa1c8777022f6f4dc1a9a310a786b8de",
+          "fingerprint_u64": "0x0E639D9A7BA779AE",
+          "prefixes": [
+            "sha256:8001ed8ec14681bb896e0e3622a87304581c5eabb17ee2eefab8b11edf6e49c8",
+            "sha256:0e639d9a7ba779ae8c6ecbd3eab9df46fa1c8777022f6f4dc1a9a310a786b8de"
+          ],
+          "prefixes_u64": [
+            "0x8001ED8EC14681BB",
+            "0x0E639D9A7BA779AE"
+          ],
+          "fields": [
+            {
+              "name": "DeadlineMs",
+              "type": "u32"
+            },
+            {
+              "name": "TraceId",
+              "type": "bytes"
+            }
+          ]
+        }
+      }
+    },
+    "FRpcError": {
+      "source": "../Fomoxa.Rpc/SystemModels/FRpc.cs",
+      "fingerprint": "sha256:4ab013d04362bf7b9772ce565a2d9d4cd6385fd22c01060dc6f3247d7678b439",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Code",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Message",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "DetailsId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Details",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xBF94ECC4",
+          "fingerprint": "sha256:d52ba5dd04c646124e63d5f67b9ecb74ac50cd4a9c68a248bb80d2c704a7658f",
+          "fingerprint_u64": "0xD52BA5DD04C64612",
+          "prefixes": [
+            "sha256:a58ea55f6a679084c0e4da8c467ebb0ffc2ef85cbe82fde073adfb832984c4a2",
+            "sha256:4a043b62fdc0e07d53f42ccb409dc3546203f648269e7c4ec534f4475e3ddd7a",
+            "sha256:58ed5cbcd7350354e849778e5edf5276fbcfc8e56e8275a9e22b4f649be2e3c9",
+            "sha256:d52ba5dd04c646124e63d5f67b9ecb74ac50cd4a9c68a248bb80d2c704a7658f"
+          ],
+          "prefixes_u64": [
+            "0xA58EA55F6A679084",
+            "0x4A043B62FDC0E07D",
+            "0x58ED5CBCD7350354",
+            "0xD52BA5DD04C64612"
+          ],
+          "fields": [
+            {
+              "name": "Code",
+              "type": "u32"
+            },
+            {
+              "name": "Message",
+              "type": "string"
+            },
+            {
+              "name": "DetailsId",
+              "type": "u32"
+            },
+            {
+              "name": "Details",
+              "type": "bytes"
+            }
+          ]
+        }
+      }
+    },
+    "FRpcHealthRequest": {
+      "source": "../Fomoxa.Rpc/SystemModels/FRpc.cs",
+      "fingerprint": "sha256:2567bc3919bbcdb3c3e56a077d3675dff33abc82c9cf693e66b3314015e1eb50",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Service",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x2F1F7702",
+          "fingerprint": "sha256:39fb89f8eb3207c74c1cfb92868f0bf57173898081fd777c69872c8eb3a77eed",
+          "fingerprint_u64": "0x39FB89F8EB3207C7",
+          "prefixes": [
+            "sha256:39fb89f8eb3207c74c1cfb92868f0bf57173898081fd777c69872c8eb3a77eed"
+          ],
+          "prefixes_u64": [
+            "0x39FB89F8EB3207C7"
+          ],
+          "fields": [
+            {
+              "name": "Service",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "FRpcHealthResponse": {
+      "source": "../Fomoxa.Rpc/SystemModels/FRpc.cs",
+      "fingerprint": "sha256:1eaed86859054484e5c686018407e9ac4298dc1916aebaa09eb8b4c002ebb92d",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Status",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x6648B45C",
+          "fingerprint": "sha256:26b2049d771cfbee1624ff91ac2e23f8e0fcbd76dc9e772db11d278e27d2bb99",
+          "fingerprint_u64": "0x26B2049D771CFBEE",
+          "prefixes": [
+            "sha256:26b2049d771cfbee1624ff91ac2e23f8e0fcbd76dc9e772db11d278e27d2bb99"
+          ],
+          "prefixes_u64": [
+            "0x26B2049D771CFBEE"
+          ],
+          "fields": [
+            {
+              "name": "Status",
+              "type": "u32"
+            }
+          ]
+        }
+      }
+    },
+    "FRpcVoid": {
+      "source": "../Fomoxa.Rpc/SystemModels/FRpc.cs",
+      "fingerprint": "sha256:cd48ee6983d59c6f5f7cfd3f3b2ec2a8c4a0f66c30e22bec805204acdb8bc9a3",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [],
+      "messages": {
+        "rpc": {
+          "id": "0xD4A891C4",
+          "fingerprint": "sha256:2b58fe10f955c83386b3b377b64aa08e695dc84d012a391c80da151205c7bac4",
+          "fingerprint_u64": "0x2B58FE10F955C833",
+          "prefixes": [],
+          "prefixes_u64": [],
+          "fields": []
+        }
+      }
+    },
+    "NoPodAvailable": {
+      "source": "Models/Allocate.cs",
+      "fingerprint": "sha256:4d2ca76114914bbd7ee5c4104350016ed16c6063ee89279c7d36180e3df4dba5",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Version",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x020AAA81",
+          "fingerprint": "sha256:4514f2fff5fc0063083f3434a3a74c6253716c2d907f72fcc7c671c94f64fbc4",
+          "fingerprint_u64": "0x4514F2FFF5FC0063",
+          "prefixes": [
+            "sha256:4514f2fff5fc0063083f3434a3a74c6253716c2d907f72fcc7c671c94f64fbc4"
+          ],
+          "prefixes_u64": [
+            "0x4514F2FFF5FC0063"
+          ],
+          "fields": [
+            {
+              "name": "Version",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "PodChange": {
+      "source": "Models/Watch.cs",
+      "fingerprint": "sha256:15c58d8faba22d66b8269191d00f270d3abfcf533047d40a99a0ce9df5f2c093",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "PodId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Port",
+          "type": "u16",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Removed",
+          "type": "bool",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xFBA41D44",
+          "fingerprint": "sha256:ebfafef99e3ad6ba5f44e18574a8c32211b4eaa78fe92b3cb8b16be29e6f657e",
+          "fingerprint_u64": "0xEBFAFEF99E3AD6BA",
+          "prefixes": [
+            "sha256:1b50575a1cf3cbeec53e81e108d5fe5a5a2ea985bb9a1a82483232c698f831b0",
+            "sha256:44415c4a62085d3dac744f17dab55c1b39ff849aa891914d650dbd42834c4db0",
+            "sha256:bcfab352cbd9c4f62e78f69b880f224c6239fcb2d826877b326b2ae38ac3bbdf",
+            "sha256:ebfafef99e3ad6ba5f44e18574a8c32211b4eaa78fe92b3cb8b16be29e6f657e"
+          ],
+          "prefixes_u64": [
+            "0x1B50575A1CF3CBEE",
+            "0x44415C4A62085D3D",
+            "0xBCFAB352CBD9C4F6",
+            "0xEBFAFEF99E3AD6BA"
+          ],
+          "fields": [
+            {
+              "name": "PodId",
+              "type": "u32"
+            },
+            {
+              "name": "Address",
+              "type": "string"
+            },
+            {
+              "name": "Port",
+              "type": "u16"
+            },
+            {
+              "name": "Removed",
+              "type": "bool"
+            }
+          ]
+        }
+      }
+    },
+    "PodList": {
+      "source": "Models/Admin.cs",
+      "fingerprint": "sha256:3ee5b111880ca2011722e8240e616195174f2041eba7330ff59b087c1874294c",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Pods",
+          "type": "Array<PodState>",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xE6E15015",
+          "fingerprint": "sha256:08325b36ad04595f06482054cdb60344cecc4c75de7680c9393740966a28a77d",
+          "fingerprint_u64": "0x08325B36AD04595F",
+          "prefixes": [
+            "sha256:08325b36ad04595f06482054cdb60344cecc4c75de7680c9393740966a28a77d"
+          ],
+          "prefixes_u64": [
+            "0x08325B36AD04595F"
+          ],
+          "fields": [
+            {
+              "name": "Pods",
+              "type": "Array<PodState>"
+            }
+          ]
+        }
+      }
+    },
+    "PodLoad": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:c1da633b03a04282bd3ade445b80f8ccf695da0a0d1ecd3706e44933215238c8",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "Players",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Rooms",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Load",
+          "type": "f32",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x5E520C83",
+          "fingerprint": "sha256:6f95d0b28230b2d14a1e7250bbcd3ee6f47eb793d1dc29814015f3a64de02158",
+          "fingerprint_u64": "0x6F95D0B28230B2D1",
+          "prefixes": [
+            "sha256:5dac1ff97c37e7fdcc85c27137f2ee01d7d7790026e6cdaa93e4bad0ed79de4b",
+            "sha256:738becc4bc5764dcd3b6c27c3c3666b06902b5b2a708bbfbf909dafec9e1ee41",
+            "sha256:6f95d0b28230b2d14a1e7250bbcd3ee6f47eb793d1dc29814015f3a64de02158"
+          ],
+          "prefixes_u64": [
+            "0x5DAC1FF97C37E7FD",
+            "0x738BECC4BC5764DC",
+            "0x6F95D0B28230B2D1"
+          ],
+          "fields": [
+            {
+              "name": "Players",
+              "type": "u32"
+            },
+            {
+              "name": "Rooms",
+              "type": "u32"
+            },
+            {
+              "name": "Load",
+              "type": "f32"
+            }
+          ]
+        }
+      }
+    },
+    "PodRegistered": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:d83ba277859271747e87b4f6366bdc0ae461aa42ddce1d8027f483085cefbffa",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "PodId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "ReportIntervalMs",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "TicketKey",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xE0B7AB41",
+          "fingerprint": "sha256:a24ae2671af89c87f070d7e3b8f720b825fde3985a62569e7081e5e4c9af2c4d",
+          "fingerprint_u64": "0xA24AE2671AF89C87",
+          "prefixes": [
+            "sha256:a29c2559d21ab4568bdfc9586881967635f307cbb57c98bd8e64a049f2397c88",
+            "sha256:c84dc528ad45ed200312a0df5f9891fcf452eadc8436ed28a292c39edcc24d3f",
+            "sha256:a24ae2671af89c87f070d7e3b8f720b825fde3985a62569e7081e5e4c9af2c4d"
+          ],
+          "prefixes_u64": [
+            "0xA29C2559D21AB456",
+            "0xC84DC528AD45ED20",
+            "0xA24AE2671AF89C87"
+          ],
+          "fields": [
+            {
+              "name": "PodId",
+              "type": "u32"
+            },
+            {
+              "name": "ReportIntervalMs",
+              "type": "u32"
+            },
+            {
+              "name": "TicketKey",
+              "type": "bytes"
+            }
+          ]
+        }
+      }
+    },
+    "PodState": {
+      "source": "Models/Admin.cs",
+      "fingerprint": "sha256:7f63d28cda901c20f3b6446fc9495c3b4c4bc93ab511c3aa1a6b11e11b542ae7",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "PodId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Port",
+          "type": "u16",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Labels",
+          "type": "Array<DirectoryLabel>",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "MaxPlayers",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Players",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Rooms",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Load",
+          "type": "f32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Draining",
+          "type": "bool",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Lost",
+          "type": "bool",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x795A25C9",
+          "fingerprint": "sha256:e21f07c8b8982f8872b559a8bd8865e6425a4695ef7b21c267303f0769c29996",
+          "fingerprint_u64": "0xE21F07C8B8982F88",
+          "prefixes": [
+            "sha256:63682360ea76813e8f92336794e09ffae20ca66dcbd1cbff4b36f3d1ade2cd3d",
+            "sha256:5ed55321c96a294abf5f1845fa03f1b5d5979341ae3e1e4ef9023886a16ffe0f",
+            "sha256:4bb60a008bf089d8e88f54e5c99797ec4b67c8ce5f29154245e476883984c7eb",
+            "sha256:fb2a0e266b5183d6cb0cc18cd8ba329783a7b9cbd772e2e9c0b5ab067e6feaf5",
+            "sha256:06c3abb7716258083b37ca24d63a1ae6183460c788bfb7c2b915bfcf4ad17643",
+            "sha256:0ae5db45b6a326c7c454f5153145c8212a00412424ecc9e8a4512855d61c82b8",
+            "sha256:7c094b0d2b7a0d3c96450c61d5c5f1870b422a5d10436cf14a1bc3802f5ef258",
+            "sha256:8b09ae070ac7d5e8377dc7be8f6703c1250a476550ed1f96050c524ee1eb35ed",
+            "sha256:52c66c3bc459425d61d12c9cf2c3b94a42fcfe69190ebc4a1b5b0372565990bd",
+            "sha256:079544ba38097ec9322ee89956eeee82ece3eecf19e5b5d179397acec9739920",
+            "sha256:9402701508eb2d37b5d4cee151b684966c59cf89da4f30a0c105fb3d652543c1",
+            "sha256:e21f07c8b8982f8872b559a8bd8865e6425a4695ef7b21c267303f0769c29996"
+          ],
+          "prefixes_u64": [
+            "0x63682360EA76813E",
+            "0x5ED55321C96A294A",
+            "0x4BB60A008BF089D8",
+            "0xFB2A0E266B5183D6",
+            "0x06C3ABB771625808",
+            "0x0AE5DB45B6A326C7",
+            "0x7C094B0D2B7A0D3C",
+            "0x8B09AE070AC7D5E8",
+            "0x52C66C3BC459425D",
+            "0x079544BA38097EC9",
+            "0x9402701508EB2D37",
+            "0xE21F07C8B8982F88"
+          ],
+          "fields": [
+            {
+              "name": "PodId",
+              "type": "u32"
+            },
+            {
+              "name": "Address",
+              "type": "string"
+            },
+            {
+              "name": "Port",
+              "type": "u16"
+            },
+            {
+              "name": "Version",
+              "type": "string"
+            },
+            {
+              "name": "Region",
+              "type": "string"
+            },
+            {
+              "name": "Labels",
+              "type": "Array<DirectoryLabel>"
+            },
+            {
+              "name": "MaxPlayers",
+              "type": "u32"
+            },
+            {
+              "name": "Players",
+              "type": "u32"
+            },
+            {
+              "name": "Rooms",
+              "type": "u32"
+            },
+            {
+              "name": "Load",
+              "type": "f32"
+            },
+            {
+              "name": "Draining",
+              "type": "bool"
+            },
+            {
+              "name": "Lost",
+              "type": "bool"
+            }
+          ]
+        }
+      }
+    },
+    "PodWatch": {
+      "source": "Models/Watch.cs",
+      "fingerprint": "sha256:0e048acec8b725debfa3c58d32750e6c0f0254bc16004ed026b6b2ac7f915b0a",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [],
+      "messages": {
+        "rpc": {
+          "id": "0x4F782C02",
+          "fingerprint": "sha256:79368c31f7896abb4941b08d2b983f01ff3973d7bad9fd07e084b4914c3afe8d",
+          "fingerprint_u64": "0x79368C31F7896ABB",
+          "prefixes": [],
+          "prefixes_u64": [],
+          "fields": []
+        }
+      }
+    },
+    "ReadPods": {
+      "source": "Models/Admin.cs",
+      "fingerprint": "sha256:9c2f72050f2e864bf87bb49eee9bef3edae91c5024560b6e64f2aca54bfda8a1",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [],
+      "messages": {
+        "rpc": {
+          "id": "0xFE66131D",
+          "fingerprint": "sha256:989ebe6040ecdfb4987913980e0d62e3b06c25c9ac657ce45f23e31f7145d9d2",
+          "fingerprint_u64": "0x989EBE6040ECDFB4",
+          "prefixes": [],
+          "prefixes_u64": [],
+          "fields": []
+        }
+      }
+    },
+    "RegisterPod": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:514bca1b85a75c4e5f3239e59c6cc2ea900ae3dfc3ef95ce8530f6b48c62e43a",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "PodId",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Address",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Port",
+          "type": "u16",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Target",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Version",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Region",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Labels",
+          "type": "Array<DirectoryLabel>",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "MaxPlayers",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Rooms",
+          "type": "Array<string>",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0xFD6A77AA",
+          "fingerprint": "sha256:08d9acce6be942749f05bca26bf054b6987345e8ccaf392e307aad95b3e89746",
+          "fingerprint_u64": "0x08D9ACCE6BE94274",
+          "prefixes": [
+            "sha256:bf7b23423dc7cf1eb7b2389e8027e2b688ddb47dee0a70d3f459bcb2f895e51f",
+            "sha256:4d92309b79eb49a4f947ecb55df551b90ae8c48d9c9914304dac47bdb66bb416",
+            "sha256:61257d9e66b77235301f317d29ddd14abf4cb5df22732d65decbf30d5d9c072b",
+            "sha256:c67fd64b09610bfd1fe6b3f31e0189eb6766618a856e2e568e69a21b7229b2b1",
+            "sha256:8743478e074a18e86bb961aa4fca485e5d824b968fa13e9b42dbabfea0b2ac6d",
+            "sha256:58d00a9bb2219d291e01886a84e7b0967f3451337070e373e70cb631b3718c96",
+            "sha256:012b8739b906d13e0d0c130fdee661a3487a20a9ed83d671e2e4985b5a2689a2",
+            "sha256:d2fa2cc82a5f1798171dc935e4d37f5678de0f8732e3a34f074ceb522bfe79d4",
+            "sha256:08d9acce6be942749f05bca26bf054b6987345e8ccaf392e307aad95b3e89746"
+          ],
+          "prefixes_u64": [
+            "0xBF7B23423DC7CF1E",
+            "0x4D92309B79EB49A4",
+            "0x61257D9E66B77235",
+            "0xC67FD64B09610BFD",
+            "0x8743478E074A18E8",
+            "0x58D00A9BB2219D29",
+            "0x012B8739B906D13E",
+            "0xD2FA2CC82A5F1798",
+            "0x08D9ACCE6BE94274"
+          ],
+          "fields": [
+            {
+              "name": "PodId",
+              "type": "u32"
+            },
+            {
+              "name": "Address",
+              "type": "string"
+            },
+            {
+              "name": "Port",
+              "type": "u16"
+            },
+            {
+              "name": "Target",
+              "type": "string"
+            },
+            {
+              "name": "Version",
+              "type": "string"
+            },
+            {
+              "name": "Region",
+              "type": "string"
+            },
+            {
+              "name": "Labels",
+              "type": "Array<DirectoryLabel>"
+            },
+            {
+              "name": "MaxPlayers",
+              "type": "u32"
+            },
+            {
+              "name": "Rooms",
+              "type": "Array<string>"
+            }
+          ]
+        }
+      }
+    },
+    "ReleaseRoom": {
+      "source": "Models/Pod.cs",
+      "fingerprint": "sha256:092c295a8e46f9ff6f2118628bda1158935f10e1042824a397615901ef384666",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "RoomKey",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x6DC5CA73",
+          "fingerprint": "sha256:5383acd41bb7063b9969e8ef1973eda0dda7e8354dc7e0c5d93406dd922e7f7a",
+          "fingerprint_u64": "0x5383ACD41BB7063B",
+          "prefixes": [
+            "sha256:5383acd41bb7063b9969e8ef1973eda0dda7e8354dc7e0c5d93406dd922e7f7a"
+          ],
+          "prefixes_u64": [
+            "0x5383ACD41BB7063B"
+          ],
+          "fields": [
+            {
+              "name": "RoomKey",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "RelocateRoom": {
+      "source": "Models/Allocate.cs",
+      "fingerprint": "sha256:1a8f353e6415af251e620fa3049dbde1c1e263c424a84d7ee6cd9181395a75f7",
+      "codecs": [
+        "rpc"
+      ],
+      "fields": [
+        {
+          "name": "RoomKey",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "Tickets",
+          "type": "u32",
+          "codecs": [
+            "rpc"
+          ]
+        },
+        {
+          "name": "ApplicationData",
+          "type": "bytes",
+          "codecs": [
+            "rpc"
+          ]
+        }
+      ],
+      "messages": {
+        "rpc": {
+          "id": "0x0CA855CA",
+          "fingerprint": "sha256:f115737cf0eb49d4f8175181251cab5a6494fdc1712b81240d5a9a56bba8ddea",
+          "fingerprint_u64": "0xF115737CF0EB49D4",
+          "prefixes": [
+            "sha256:68394c8edd03466221ebc99a56714e3329d83aa1f699c01eb5ed1d9b66011c98",
+            "sha256:c533592b1726b7f31d2ebe30e061e1b3bda1010c15cdbd1dd59726e2ac698c67",
+            "sha256:f115737cf0eb49d4f8175181251cab5a6494fdc1712b81240d5a9a56bba8ddea"
+          ],
+          "prefixes_u64": [
+            "0x68394C8EDD034662",
+            "0xC533592B1726B7F3",
+            "0xF115737CF0EB49D4"
+          ],
+          "fields": [
+            {
+              "name": "RoomKey",
+              "type": "string"
+            },
+            {
+              "name": "Tickets",
+              "type": "u32"
+            },
+            {
+              "name": "ApplicationData",
+              "type": "bytes"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

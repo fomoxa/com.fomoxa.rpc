@@ -201,6 +201,7 @@ namespace Fomoxa.Rpc.Net
         public void Run()
         {
             var waker = inbox.Waker ?? throw new InvalidOperationException("a driving thread needs a waker");
+            session.Core.SetClock(() => MonotonicClock.Now);
             try
             {
                 while (Step(MonotonicClock.Now))

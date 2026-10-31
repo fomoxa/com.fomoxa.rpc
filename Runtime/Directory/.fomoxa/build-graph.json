@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "generator": "fomoxac 0.2.3",
+  "schema_fingerprint": "sha256:7d4072ac9795edc37739680673244af7f23e76a1e51a81c8ab27a1ca171ffd83",
+  "sha256_of": "each file with its `// generated-at:` line emptied, so an unchanged schema keeps an unchanged digest",
+  "sources": {
+    "../Fomoxa.Rpc/SystemModels/FRpc.cs": {
+      "models": [
+        "FRpcCtx",
+        "FRpcError",
+        "FRpcHealthRequest",
+        "FRpcHealthResponse",
+        "FRpcVoid"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/FRpcCtxRpcCodec.cs",
+          "model": "FRpcCtx",
+          "codec": "rpc",
+          "fingerprint": "sha256:0e639d9a7ba779ae8c6ecbd3eab9df46fa1c8777022f6f4dc1a9a310a786b8de",
+          "sha256": "ce50257d5352da0862b72091b85161376c0e5e1eaf8a118d7eb8422d357739e7"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/FRpcErrorRpcCodec.cs",
+          "model": "FRpcError",
+          "codec": "rpc",
+          "fingerprint": "sha256:d52ba5dd04c646124e63d5f67b9ecb74ac50cd4a9c68a248bb80d2c704a7658f",
+          "sha256": "a43fabc0f01992f9be39be3c7de9ef0ff2c8f06b17a2d3851f0a4de9f817fdc4"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/FRpcHealthRequestRpcCodec.cs",
+          "model": "FRpcHealthRequest",
+          "codec": "rpc",
+          "fingerprint": "sha256:39fb89f8eb3207c74c1cfb92868f0bf57173898081fd777c69872c8eb3a77eed",
+          "sha256": "8ad795dfb4c2bbca21a39332e0a2d43a52713ef7a97284484a51e2be8f977414"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/FRpcHealthResponseRpcCodec.cs",
+          "model": "FRpcHealthResponse",
+          "codec": "rpc",
+          "fingerprint": "sha256:26b2049d771cfbee1624ff91ac2e23f8e0fcbd76dc9e772db11d278e27d2bb99",
+          "sha256": "1d07b91d4e779b1f51aee02b450ca9dccdc10da6d903639c072ca25dbfe4f2d9"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/FRpcVoidRpcCodec.cs",
+          "model": "FRpcVoid",
+          "codec": "rpc",
+          "fingerprint": "sha256:2b58fe10f955c83386b3b377b64aa08e695dc84d012a391c80da151205c7bac4",
+          "sha256": "a3a8b9d76e0804007fd476648f03c5f2a406deb79e223ecd703c69c353b40a17"
+        }
+      ]
+    },
+    "Models/Admin.cs": {
+      "models": [
+        "DrainPod",
+        "PodList",
+        "PodState",
+        "ReadPods"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/DrainPodRpcCodec.cs",
+          "model": "DrainPod",
+          "codec": "rpc",
+          "fingerprint": "sha256:05932376c30f434e1e04daeaf5bf54d107fac9485293ba4d6e6ccc177c089211",
+          "sha256": "d3c18ef77e88b5d410a0c5534336c5c9d6e9e3dd9fe971adbf1105ba92352e7d"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/PodListRpcCodec.cs",
+          "model": "PodList",
+          "codec": "rpc",
+          "fingerprint": "sha256:08325b36ad04595f06482054cdb60344cecc4c75de7680c9393740966a28a77d",
+          "sha256": "968cd1fae434982a231924813e35407629ba0ad31ee4391d8361d5c529c05d4d"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/PodStateRpcCodec.cs",
+          "model": "PodState",
+          "codec": "rpc",
+          "fingerprint": "sha256:e21f07c8b8982f8872b559a8bd8865e6425a4695ef7b21c267303f0769c29996",
+          "sha256": "1444e52929b10c17e7ced6b1e5ac9d29d71f74754e0044b9ee234faa7d593e55"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/ReadPodsRpcCodec.cs",
+          "model": "ReadPods",
+          "codec": "rpc",
+          "fingerprint": "sha256:989ebe6040ecdfb4987913980e0d62e3b06c25c9ac657ce45f23e31f7145d9d2",
+          "sha256": "04f563a941db861c3cbe21cb7fc61199301006987d1bae359fd5d407b46821b8"
+        }
+      ]
+    },
+    "Models/Allocate.cs": {
+      "models": [
+        "AllocateRequest",
+        "AllocateResponse",
+        "DirectoryLabel",
+        "NoPodAvailable",
+        "RelocateRoom"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/AllocateRequestRpcCodec.cs",
+          "model": "AllocateRequest",
+          "codec": "rpc",
+          "fingerprint": "sha256:0985401b6a28e9ca584ac146396c107322f5b63aebed6de2d180df98b18f65e4",
+          "sha256": "77f71e53523ba27db6a899ac7b46008dd17d850cd5bdc2fcb44035f2b609b160"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/AllocateResponseRpcCodec.cs",
+          "model": "AllocateResponse",
+          "codec": "rpc",
+          "fingerprint": "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623",
+          "sha256": "f56cce59b05e716ae7ba5f68e4d5143322a10d9e66b2bf1c2fffdad8ef365408"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/DirectoryLabelRpcCodec.cs",
+          "model": "DirectoryLabel",
+          "codec": "rpc",
+          "fingerprint": "sha256:dad9d90bedc5dc365902ecbb9ef2e67675aec5b271d09c9ffb751b24715cead5",
+          "sha256": "7d7a185a6d1186b1e37f0a94523dbaa33bdd05d901cb0c7db1cb82dba28392bd"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/NoPodAvailableRpcCodec.cs",
+          "model": "NoPodAvailable",
+          "codec": "rpc",
+          "fingerprint": "sha256:4514f2fff5fc0063083f3434a3a74c6253716c2d907f72fcc7c671c94f64fbc4",
+          "sha256": "0ac8fd7c0031dd56a2a8dbd8a51a5f35f77dd749021ceb8b8a22cd80352f82ab"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/RelocateRoomRpcCodec.cs",
+          "model": "RelocateRoom",
+          "codec": "rpc",
+          "fingerprint": "sha256:f115737cf0eb49d4f8175181251cab5a6494fdc1712b81240d5a9a56bba8ddea",
+          "sha256": "f82b4bfe0e5aa11fadeb9e0e02ee16ed3e78b78eeb76a25afdc6c5f0a7c7af67"
+        }
+      ]
+    },
+    "Models/Auth.cs": {
+      "models": [
+        "DirectoryAuth"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/DirectoryAuthRpcCodec.cs",
+          "model": "DirectoryAuth",
+          "codec": "rpc",
+          "fingerprint": "sha256:fab51d99fb04030ce9b80bef482380ef85379e7e932ea09dc2db09949e01db9b",
+          "sha256": "838a70953a4dbe13aef69d3e978bdfd5ccf7486138decfa03eaf35e45c3ed588"
+        }
+      ]
+    },
+    "Models/Pod.cs": {
+      "models": [
+        "AcquireRoom",
+        "DrainOrder",
+        "DrainSelf",
+        "DrainWatch",
+        "PodLoad",
+        "PodRegistered",
+        "RegisterPod",
+        "ReleaseRoom"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/AcquireRoomRpcCodec.cs",
+          "model": "AcquireRoom",
+          "codec": "rpc",
+          "fingerprint": "sha256:53eafe7049f8b58bdd90974d413fc8c53cff44df1c3f3a06018affa5cd3bc234",
+          "sha256": "02cf7c53fa4a7d52284ecfff3f4b271cc3c94c476759944862988676a58957dd"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/DrainOrderRpcCodec.cs",
+          "model": "DrainOrder",
+          "codec": "rpc",
+          "fingerprint": "sha256:ead47c2ec9d187f440542052547b742ef9a1b27a49d3d7e2078364abab440a5f",
+          "sha256": "8c87026cfd1c9717eced2fd8a3703e01820f0e9b3e066eef149a0208a982b49e"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/DrainSelfRpcCodec.cs",
+          "model": "DrainSelf",
+          "codec": "rpc",
+          "fingerprint": "sha256:6c9c60afdb9b3d937c3c7e9515984eef5b82375f8d05170d636899bd9202aa1f",
+          "sha256": "73a1d12d4436134685122856d375ea72137e690f1dfa15049163f8282f2402fe"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/DrainWatchRpcCodec.cs",
+          "model": "DrainWatch",
+          "codec": "rpc",
+          "fingerprint": "sha256:403dbba8139c7d592ecf1a10a7052d4b7dfa2baa3b8009226cd47df54b01501f",
+          "sha256": "e78c26370b036c0be43e30c576522da138ae59a532d5b90d03ff9af67905f5e8"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/PodLoadRpcCodec.cs",
+          "model": "PodLoad",
+          "codec": "rpc",
+          "fingerprint": "sha256:6f95d0b28230b2d14a1e7250bbcd3ee6f47eb793d1dc29814015f3a64de02158",
+          "sha256": "6310efb8c57bb5c8821bab095e50292aa7e70612be1e17e2f6955bc632e544f8"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/PodRegisteredRpcCodec.cs",
+          "model": "PodRegistered",
+          "codec": "rpc",
+          "fingerprint": "sha256:a24ae2671af89c87f070d7e3b8f720b825fde3985a62569e7081e5e4c9af2c4d",
+          "sha256": "96843493faef93a80000a34d7215894d766930c32066bb73156e14d5186bfea2"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/RegisterPodRpcCodec.cs",
+          "model": "RegisterPod",
+          "codec": "rpc",
+          "fingerprint": "sha256:08d9acce6be942749f05bca26bf054b6987345e8ccaf392e307aad95b3e89746",
+          "sha256": "f97c87a17c373ce4cbadd7b93d75cdf27b2722985acc81b861f8da1ec825810b"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/ReleaseRoomRpcCodec.cs",
+          "model": "ReleaseRoom",
+          "codec": "rpc",
+          "fingerprint": "sha256:5383acd41bb7063b9969e8ef1973eda0dda7e8354dc7e0c5d93406dd922e7f7a",
+          "sha256": "2a852116933704d9132d32e7e1336495ecac5914d8caaf1ca0d98e4837a3c5a8"
+        }
+      ]
+    },
+    "Models/Watch.cs": {
+      "models": [
+        "PodChange",
+        "PodWatch"
+      ],
+      "outputs": [
+        {
+          "path": "FomoxaDirectoryCodecs/PodChangeRpcCodec.cs",
+          "model": "PodChange",
+          "codec": "rpc",
+          "fingerprint": "sha256:ebfafef99e3ad6ba5f44e18574a8c32211b4eaa78fe92b3cb8b16be29e6f657e",
+          "sha256": "9a655c559151c121ee30ed254e4140479e4dd533404fb03739706d050789bb50"
+        },
+        {
+          "path": "FomoxaDirectoryCodecs/PodWatchRpcCodec.cs",
+          "model": "PodWatch",
+          "codec": "rpc",
+          "fingerprint": "sha256:79368c31f7896abb4941b08d2b983f01ff3973d7bad9fd07e084b4914c3afe8d",
+          "sha256": "916df4c0fe94c3517b722e749e91f244737640efe4a069217ed22cf2bf0bb464"
+        }
+      ]
+    }
+  },
+  "shared": [
+    {
+      "path": "FomoxaDirectoryCodecs/Runtime.cs",
+      "kind": "runtime",
+      "sha256": "89b16ff2cbd9150736e2a3b5b92427c8491e74b5a29585a7efa9f2fea1fc1d3b"
+    },
+    {
+      "path": "FomoxaDirectoryCodecs/Handshake.cs",
+      "kind": "handshake",
+      "sha256": "c4cfbcb1a6d9264b504b97bc5054dfebd3ee8297c4acf948705f50c5e65a8805"
+    },
+    {
+      "path": "FomoxaDirectoryCodecs/NetSchema.cs",
+      "kind": "net_schema",
+      "sha256": "693096c31e25c1a3e5a9ed02ebe473d6e389a229e5aa9e1f27848a38e8c26363"
+    }
+  ]
+}
