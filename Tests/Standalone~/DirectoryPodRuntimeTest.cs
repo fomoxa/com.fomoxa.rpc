@@ -78,6 +78,34 @@ namespace Fomoxa.Rpc.Tests
         }
 
         [Test]
+        public void AClientJoinsAPodBehindTheGatewayAtTheAddressTheDirectoryHandsOut()
+        {
+            ushort gatewayPort = FreeUdpPort();
+            using DirectoryProcess directory = DirectoryProcess.Start(publicAddress: $"127.0.0.1:{gatewayPort}");
+            using GatewayProcess gateway = GatewayProcess.Start(gatewayPort, directory);
+            var listener = new PodListenerFactory(registry, "pod-a", behindGateway: true);
+            NetworkRuntime server = Runtime(listener);
+            server.ServerManager.Authenticator = new Accepting();
+            ushort gamePort = FreeUdpPort();
+            using var pod = new DirectoryPod(server, Settings(directory, gamePort, "pod-a"));
+            pod.OnRegistered += registration => listener.Tokens = new ConnectTokens(registry, registration.TicketKey);
+
+            pod.Start();
+            Until(() => pod.IsRegistered);
+            server.ServerManager.StartConnection(gamePort);
+            AllocateResponse allocation = Allocate(directory, "arena:1");
+            NetworkRuntime client = Runtime(new EncryptedUdpTransportFactory(registry));
+            client.ClientManager.StartConnection(allocation.Address, allocation.Port, allocation.Connections.Single());
+            Until(() => client.ClientManager.State == ConnectionState.Started);
+            Until(() => directory.Pods().Single().Players == 1);
+
+            Assert.AreEqual("127.0.0.1", allocation.Address);
+            Assert.AreEqual(gatewayPort, allocation.Port);
+            Assert.AreEqual(gamePort, directory.Pods().Single().Port);
+            Assert.AreEqual(1, server.ServerManager.PeerCount);
+        }
+
+        [Test]
         public void TheDrainDeadlineStopsTheServerOfTheRuntime()
         {
             using DirectoryProcess directory = DirectoryProcess.Start(drainSeconds: 1);
@@ -160,12 +188,14 @@ namespace Fomoxa.Rpc.Tests
         {
             private readonly FomoxaRegistry registry;
             private readonly string target;
+            private readonly bool behindGateway;
             private readonly EncryptedUdpTransportFactory client;
 
-            public PodListenerFactory(FomoxaRegistry registry, string target)
+            public PodListenerFactory(FomoxaRegistry registry, string target, bool behindGateway = false)
             {
                 this.registry = registry;
                 this.target = target;
+                this.behindGateway = behindGateway;
                 client = new EncryptedUdpTransportFactory(registry);
             }
 
@@ -178,7 +208,7 @@ namespace Fomoxa.Rpc.Tests
             public bool CanUseConnection(ReadOnlyMemory<byte> connection) => client.CanUseConnection(connection);
 
             public IListenerTransport CreateListener(ushort port, out ushort boundPort) =>
-                new EncryptedUdpTransportFactory(registry, Tokens, target).CreateListener(port, out boundPort);
+                new EncryptedUdpTransportFactory(registry, Tokens, target, behindGateway).CreateListener(port, out boundPort);
 
             public ITransportConnector CreateConnector(string address, ushort port) => client.CreateConnector(address, port);
 

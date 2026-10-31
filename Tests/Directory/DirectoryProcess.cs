@@ -47,9 +47,9 @@ namespace Fomoxa.Rpc.Tests
 
         public string AdminAddress { get; }
 
-        public static DirectoryProcess Start(ushort port = 0, int drainSeconds = 300)
+        public static DirectoryProcess Start(ushort port = 0, int drainSeconds = 300, string? publicAddress = null)
         {
-            string binary = Binary();
+            string binary = Binary("fomoxa-directory", "FomoxaDirectory");
             string folder = Path.Combine(Path.GetTempPath(), "fomoxa-directory-test-" + Guid.NewGuid().ToString("N"));
             System.IO.Directory.CreateDirectory(folder);
             string config = Path.Combine(folder, "directory.toml");
@@ -59,6 +59,7 @@ grace_seconds = 1
 report_interval_seconds = 1
 drain_seconds = {drainSeconds}
 ticket_seconds = 30
+{(publicAddress == null ? "" : $"public_address = \"{publicAddress}\"")}
 
 [keys]
 backend = {{ env = ""FOMOXA_TEST_BACKEND_KEY"" }}
@@ -168,7 +169,7 @@ root = {{ env = ""FOMOXA_TEST_ROOT_KEY"" }}
             return RpcConnection.Connect(address, NetSchema.Build(), registry, options).GetAwaiter().GetResult();
         }
 
-        private static void Kill(Process process)
+        internal static void Kill(Process process)
         {
             try
             {
@@ -183,27 +184,27 @@ root = {{ env = ""FOMOXA_TEST_ROOT_KEY"" }}
             }
         }
 
-        private static string Binary()
+        internal static string Binary(string name, string metadataKey)
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.OSArchitecture != Architecture.X64)
             {
-                Assert.Ignore("the fomoxa-directory binary of the tests is built for Linux x64");
+                Assert.Ignore($"the {name} binary of the tests is built for Linux x64");
             }
 
-            string? path = Located();
+            string? path = Located(name, metadataKey);
             if (path == null || !File.Exists(path))
             {
-                Assert.Ignore($"the fomoxa-directory binary is not here ({path ?? "no path"}); run Tools/sync-directory.sh");
+                Assert.Ignore($"the {name} binary is not here ({path ?? "no path"}); run Tools/sync-directory.sh");
             }
 
             return path!;
         }
 
-        private static string? Located()
+        private static string? Located(string name, string metadataKey)
         {
             foreach (AssemblyMetadataAttribute attribute in typeof(DirectoryProcess).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>())
             {
-                if (attribute.Key == "FomoxaDirectory")
+                if (attribute.Key == metadataKey)
                 {
                     return attribute.Value;
                 }
@@ -212,7 +213,7 @@ root = {{ env = ""FOMOXA_TEST_ROOT_KEY"" }}
             var package = UnityEditor.PackageManager.PackageInfo.FindForAssembly(typeof(DirectoryPod).Assembly);
             if (package != null)
             {
-                return Path.GetFullPath(Path.Combine(package.resolvedPath, "..", "rpc-tests", "directory", "fomoxa-directory"));
+                return Path.GetFullPath(Path.Combine(package.resolvedPath, "..", "rpc-tests", "directory", name));
             }
 #endif
             return null;

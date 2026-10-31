@@ -126,6 +126,16 @@ using var stopping = PosixSignalRegistration.Create(PosixSignal.SIGTERM, context
 
 For a Unity player, have the platform tell the game before it stops the process, for example with a Kubernetes `preStop` hook that sends the game a request, and call `RequestDrain` there. Set the grace period of the platform longer than the drain deadline of the directory.
 
+### Behind a gateway
+
+When clients reach the pods through `fomoxa-gateway`, `Address` and `Port` stay the pod's own address inside the cluster: the gateway learns it from the directory and forwards datagrams there. Set `public_address` in the directory's settings to the gateway's public address, so `Allocate` and `Relocate` hand clients the gateway instead of the pod. Turn on Behind Gateway on the pod's encrypted transport before starting the server:
+
+```csharp
+encryptedTransport.BehindGateway = true;
+```
+
+With this flag the pod only accepts datagrams that carry the header the gateway adds. The encrypted UDP page of the documentation describes the mode.
+
 ## Source
 
 The fRPC code in this package is copied from the fRPC repository at a pinned commit. Change it there, not here.
