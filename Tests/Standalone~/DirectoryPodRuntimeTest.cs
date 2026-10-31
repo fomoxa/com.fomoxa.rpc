@@ -86,6 +86,7 @@ namespace Fomoxa.Rpc.Tests
             var listener = new PodListenerFactory(registry, "pod-a", behindGateway: true);
             NetworkRuntime server = Runtime(listener);
             server.ServerManager.Authenticator = new Accepting();
+            List<ulong> peers = Started(server);
             ushort gamePort = FreeUdpPort();
             using var pod = new DirectoryPod(server, Settings(directory, gamePort, "pod-a"));
             pod.OnRegistered += registration => listener.Tokens = new ConnectTokens(registry, registration.TicketKey);
@@ -101,8 +102,40 @@ namespace Fomoxa.Rpc.Tests
 
             Assert.AreEqual("127.0.0.1", allocation.Address);
             Assert.AreEqual(gatewayPort, allocation.Port);
+            Assert.AreEqual("", allocation.WebSocketUrl);
             Assert.AreEqual(gamePort, directory.Pods().Single().Port);
             Assert.AreEqual(1, server.ServerManager.PeerCount);
+            Assert.IsFalse(server.ServerManager.ArrivedOverWebSocket(peers.Single()));
+        }
+
+        [Test]
+        public void AWebSocketClientJoinsAPodBehindTheGatewayAtTheUrlTheDirectoryHandsOut()
+        {
+            ushort gatewayPort = FreeUdpPort();
+            ushort webSocketPort = DirectoryProcess.FreePort();
+            string url = $"ws://127.0.0.1:{webSocketPort}/game";
+            using DirectoryProcess directory = DirectoryProcess.Start(publicAddress: $"127.0.0.1:{gatewayPort}", publicWebSocket: url);
+            using GatewayProcess gateway = GatewayProcess.Start(gatewayPort, directory, webSocketPort);
+            var listener = new PodListenerFactory(registry, "pod-a", behindGateway: true);
+            NetworkRuntime server = Runtime(listener);
+            server.ServerManager.Authenticator = new Accepting();
+            List<ulong> peers = Started(server);
+            ushort gamePort = FreeUdpPort();
+            using var pod = new DirectoryPod(server, Settings(directory, gamePort, "pod-a"));
+            pod.OnRegistered += registration => listener.Tokens = new ConnectTokens(registry, registration.TicketKey);
+
+            pod.Start();
+            Until(() => pod.IsRegistered);
+            server.ServerManager.StartConnection(gamePort);
+            AllocateResponse allocation = Allocate(directory, "arena:1");
+            NetworkRuntime client = Runtime(new EncryptedWebSocketTransportFactory(registry));
+            client.ClientManager.StartConnection(allocation.WebSocketUrl, 0, allocation.Connections.Single());
+            Until(() => client.ClientManager.State == ConnectionState.Started);
+            Until(() => directory.Pods().Single().Players == 1);
+
+            Assert.AreEqual(url, allocation.WebSocketUrl);
+            Assert.AreEqual(1, server.ServerManager.PeerCount);
+            Assert.IsTrue(server.ServerManager.ArrivedOverWebSocket(peers.Single()));
         }
 
         [Test]
@@ -150,7 +183,20 @@ namespace Fomoxa.Rpc.Tests
             return allocation.Result;
         }
 
-        private static ushort FreeUdpPort()
+        private static List<ulong> Started(NetworkRuntime server)
+        {
+            var peers = new List<ulong>();
+            server.ServerManager.OnRemoteConnectionState += args =>
+            {
+                if (args.State == ConnectionState.Started)
+                {
+                    peers.Add(args.PeerId);
+                }
+            };
+            return peers;
+        }
+
+                private static ushort FreeUdpPort()
         {
             using var socket = new UdpClient(new IPEndPoint(IPAddress.Loopback, 0));
             return (ushort)((IPEndPoint)socket.Client.LocalEndPoint!).Port;

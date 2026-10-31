@@ -136,6 +136,8 @@ encryptedTransport.BehindGateway = true;
 
 With this flag the pod only accepts datagrams that carry the header the gateway adds. The encrypted UDP page of the documentation describes the mode.
 
+When the gateway also takes WebSocket clients, set `public_websocket` in the directory's settings to the URL clients connect to; `Allocate` and `Relocate` then return it in `WebSocketUrl`. A client keeps its transport when it moves, so when you transfer a player, check `ServerManager.ArrivedOverWebSocket(peerId)` and pass `WebSocketUrl` with port 0 to a WebSocket client, or `Address` and `Port` to a UDP client.
+
 ## Source
 
 The fRPC code in this package is copied from the fRPC repository at a pinned commit. Change it there, not here.

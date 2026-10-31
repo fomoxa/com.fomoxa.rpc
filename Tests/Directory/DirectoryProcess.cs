@@ -47,7 +47,7 @@ namespace Fomoxa.Rpc.Tests
 
         public string AdminAddress { get; }
 
-        public static DirectoryProcess Start(ushort port = 0, int drainSeconds = 300, string? publicAddress = null)
+        public static DirectoryProcess Start(ushort port = 0, int drainSeconds = 300, string? publicAddress = null, string? publicWebSocket = null)
         {
             string binary = Binary("fomoxa-directory", "FomoxaDirectory");
             string folder = Path.Combine(Path.GetTempPath(), "fomoxa-directory-test-" + Guid.NewGuid().ToString("N"));
@@ -60,6 +60,7 @@ report_interval_seconds = 1
 drain_seconds = {drainSeconds}
 ticket_seconds = 30
 {(publicAddress == null ? "" : $"public_address = \"{publicAddress}\"")}
+{(publicWebSocket == null ? "" : $"public_websocket = \"{publicWebSocket}\"")}
 
 [keys]
 backend = {{ env = ""FOMOXA_TEST_BACKEND_KEY"" }}

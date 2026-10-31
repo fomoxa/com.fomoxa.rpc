@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generator": "fomoxac 0.2.3",
-  "fingerprint": "sha256:7d4072ac9795edc37739680673244af7f23e76a1e51a81c8ab27a1ca171ffd83",
-  "fingerprint_u64": "0x7D4072AC9795EDC3",
+  "fingerprint": "sha256:89b3f912ad5aff5aaf05fdc249a311d1fb108f674822e942b842cd7cee4c9fa8",
+  "fingerprint_u64": "0x89B3F912AD5AFF5A",
   "models": {
     "AcquireRoom": {
       "source": "Models/Pod.cs",
@@ -141,7 +141,7 @@
     },
     "AllocateResponse": {
       "source": "Models/Allocate.cs",
-      "fingerprint": "sha256:9a091d4ebc607c889038c6f6a81cd60bc1c5819467e8bd14b754da5d1a964737",
+      "fingerprint": "sha256:f290757c7a33732273f0cc763f5d6412093e18f4a57e94ccc6988fc9301cd8db",
       "codecs": [
         "rpc"
       ],
@@ -166,22 +166,31 @@
           "codecs": [
             "rpc"
           ]
+        },
+        {
+          "name": "WebSocketUrl",
+          "type": "string",
+          "codecs": [
+            "rpc"
+          ]
         }
       ],
       "messages": {
         "rpc": {
           "id": "0x34816436",
-          "fingerprint": "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623",
-          "fingerprint_u64": "0x77569F275B0BBEFA",
+          "fingerprint": "sha256:9b3362275c24c65ccc5cc9b33eb7ca0e6d437d37b284cb7f1c1016ae1e796cfd",
+          "fingerprint_u64": "0x9B3362275C24C65C",
           "prefixes": [
             "sha256:3cede98ba13103741c54ce4116a62e36cec9b200c5f5289e6e1a60917651ae0c",
             "sha256:8e9edcc51bc8246529c01c60f74eb2a83b6b88a71496628ef3c5240cddf05ce8",
-            "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623"
+            "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623",
+            "sha256:9b3362275c24c65ccc5cc9b33eb7ca0e6d437d37b284cb7f1c1016ae1e796cfd"
           ],
           "prefixes_u64": [
             "0x3CEDE98BA1310374",
             "0x8E9EDCC51BC82465",
-            "0x77569F275B0BBEFA"
+            "0x77569F275B0BBEFA",
+            "0x9B3362275C24C65C"
           ],
           "fields": [
             {
@@ -195,6 +204,10 @@
             {
               "name": "Connections",
               "type": "Array<bytes>"
+            },
+            {
+              "name": "WebSocketUrl",
+              "type": "string"
             }
           ]
         }

@@ -4,9 +4,9 @@
 // source: Models/Allocate.cs
 // model: AllocateResponse
 // codec: rpc
-// fingerprint: sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623
+// fingerprint: sha256:9b3362275c24c65ccc5cc9b33eb7ca0e6d437d37b284cb7f1c1016ae1e796cfd
 // fomoxac-version: 0.2.3
-// generated-at: 2026-10-31T08:50:06Z
+// generated-at: 2026-10-31T11:51:29Z
 
 namespace FomoxaDirectoryCodecs
 {
@@ -18,6 +18,7 @@ namespace FomoxaDirectoryCodecs
 /// <item><description><c>Address</c>: <c>string</c></description></item>
 /// <item><description><c>Port</c>: <c>u16</c></description></item>
 /// <item><description><c>Connections</c>: <c>Array&lt;bytes&gt;</c></description></item>
+/// <item><description><c>WebSocketUrl</c>: <c>string</c></description></item>
 /// </list>
 /// </remarks>
 public static class AllocateResponseRpcCodec
@@ -30,7 +31,7 @@ public static class AllocateResponseRpcCodec
 
     /// <summary>This message's wire-contract fingerprint - the same value
     /// <c>Handshake.cs</c> publishes, and the one a peer compares against.</summary>
-    public const ulong Fingerprint = 0x77569F275B0BBEFA;
+    public const ulong Fingerprint = 0x9B3362275C24C65C;
 
     /// <summary>Writes the <c>rpc</c> fields of <paramref name="value"/>, in declaration order.</summary>
     public static void Encode(Writer writer, Fomoxa.Rpc.Directory.AllocateResponse value)
@@ -42,6 +43,7 @@ public static class AllocateResponseRpcCodec
         {
             writer.WriteBytes(element);
         }
+        writer.WriteString(value.WebSocketUrl);
     }
 
     /// <summary>Reads the <c>rpc</c> fields into <paramref name="value"/>, in declaration order.</summary>
@@ -83,6 +85,16 @@ public static class AllocateResponseRpcCodec
         }
         ArrayField.Trim(connectionsValueList, connectionsValueCount);
         value.Connections = connectionsValueList;
+        var webSocketUrlValue = value.WebSocketUrl;
+        if (reader.FieldAbsent())
+        {
+            webSocketUrlValue = "";
+        }
+        else
+        {
+            reader.ReadString(ref webSocketUrlValue);
+        }
+        value.WebSocketUrl = webSocketUrlValue;
     }
 }
 

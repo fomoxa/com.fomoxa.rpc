@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "generator": "fomoxac 0.2.3",
-  "schema_fingerprint": "sha256:7d4072ac9795edc37739680673244af7f23e76a1e51a81c8ab27a1ca171ffd83",
+  "schema_fingerprint": "sha256:89b3f912ad5aff5aaf05fdc249a311d1fb108f674822e942b842cd7cee4c9fa8",
   "sha256_of": "each file with its `// generated-at:` line emptied, so an unchanged schema keeps an unchanged digest",
   "sources": {
     "../Fomoxa.Rpc/SystemModels/FRpc.cs": {
@@ -108,8 +108,8 @@
           "path": "FomoxaDirectoryCodecs/AllocateResponseRpcCodec.cs",
           "model": "AllocateResponse",
           "codec": "rpc",
-          "fingerprint": "sha256:77569f275b0bbefaaf61fba4e34a717f4015d0df1bf3195afa61dc0135088623",
-          "sha256": "f56cce59b05e716ae7ba5f68e4d5143322a10d9e66b2bf1c2fffdad8ef365408"
+          "fingerprint": "sha256:9b3362275c24c65ccc5cc9b33eb7ca0e6d437d37b284cb7f1c1016ae1e796cfd",
+          "sha256": "46032364416b9f1765076835a0630aeb28668bbaf4a92d23ad3fe56d34a13268"
         },
         {
           "path": "FomoxaDirectoryCodecs/DirectoryLabelRpcCodec.cs",
@@ -250,12 +250,12 @@
     {
       "path": "FomoxaDirectoryCodecs/Handshake.cs",
       "kind": "handshake",
-      "sha256": "c4cfbcb1a6d9264b504b97bc5054dfebd3ee8297c4acf948705f50c5e65a8805"
+      "sha256": "aec3501ddefff6902611e08502cb2967567c4354e2b56dfd8dffa1943217c634"
     },
     {
       "path": "FomoxaDirectoryCodecs/NetSchema.cs",
       "kind": "net_schema",
-      "sha256": "693096c31e25c1a3e5a9ed02ebe473d6e389a229e5aa9e1f27848a38e8c26363"
+      "sha256": "5905e7824fe6d5e5605ab6206c7ebeca1dcfa674b8819c711e665aa1decdbf66"
     }
   ]
 }

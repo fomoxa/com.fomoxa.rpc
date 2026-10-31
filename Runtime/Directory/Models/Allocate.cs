@@ -61,6 +61,10 @@ namespace Fomoxa.Rpc.Directory
         [Network("Array<bytes>")]
         [Codec("rpc")]
         public List<byte[]> Connections { get; set; } = new List<byte[]>();
+
+        [Network("string")]
+        [Codec("rpc")]
+        public string WebSocketUrl { get; set; } = "";
     }
 
     [Network]

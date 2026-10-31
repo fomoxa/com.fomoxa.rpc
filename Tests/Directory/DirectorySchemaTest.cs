@@ -7,7 +7,7 @@ namespace Fomoxa.Rpc.Tests
 {
     public sealed class DirectorySchemaTest
     {
-        private const ulong GatewayDirectoryModelFingerprint = 0x7D4072AC9795EDC3;
+        private const ulong GatewayDirectoryModelFingerprint = 0x89B3F912AD5AFF5A;
 
         [Test]
         public void TheSchemaFingerprintEqualsTheRustDirectoryModel()

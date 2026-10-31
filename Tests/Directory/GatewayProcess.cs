@@ -21,7 +21,7 @@ namespace Fomoxa.Rpc.Tests
             this.folder = folder;
         }
 
-        public static GatewayProcess Start(ushort clientPort, DirectoryProcess directory)
+        public static GatewayProcess Start(ushort clientPort, DirectoryProcess directory, ushort webSocketPort = 0)
         {
             string binary = DirectoryProcess.Binary("fomoxa-gateway", "FomoxaGateway");
             string folder = Path.Combine(Path.GetTempPath(), "fomoxa-gateway-test-" + Guid.NewGuid().ToString("N"));
@@ -31,6 +31,7 @@ namespace Fomoxa.Rpc.Tests
 pod_bind = ""127.0.0.1:0""
 directory = ""{directory.Address}""
 retry_seconds = 1
+{(webSocketPort == 0 ? "" : $"websocket_listen = \"127.0.0.1:{webSocketPort}\"\nwebsocket_path = \"/game\"")}
 
 [keys]
 gateway = {{ env = ""FOMOXA_TEST_GATEWAY_KEY"" }}
