@@ -33,10 +33,13 @@ namespace Fomoxa.Rpc.Tests
         private readonly string folder;
         private RpcConnection? admin;
 
-        private DirectoryProcess(Process process, string folder, ushort port, string adminAddress)
+        private readonly StringBuilder lines;
+
+        private DirectoryProcess(Process process, string folder, StringBuilder lines, ushort port, string adminAddress)
         {
             this.process = process;
             this.folder = folder;
+            this.lines = lines;
             Port = port;
             AdminAddress = adminAddress;
         }
@@ -46,6 +49,17 @@ namespace Fomoxa.Rpc.Tests
         public string Address => $"127.0.0.1:{Port}";
 
         public string AdminAddress { get; }
+
+        public string Output
+        {
+            get
+            {
+                lock (lines)
+                {
+                    return lines.ToString();
+                }
+            }
+        }
 
         public static DirectoryProcess Start(ushort port = 0, int drainSeconds = 300, string? publicAddress = null, string? publicWebSocket = null)
         {
@@ -119,7 +133,7 @@ root = {{ env = ""FOMOXA_TEST_ROOT_KEY"" }}
                 }
             }
 
-            return new DirectoryProcess(process, folder, ushort.Parse(listening.Groups[2].Value), $"127.0.0.1:{listening.Groups[4].Value}");
+            return new DirectoryProcess(process, folder, lines, ushort.Parse(listening.Groups[2].Value), $"127.0.0.1:{listening.Groups[4].Value}");
         }
 
         public static ushort FreePort()

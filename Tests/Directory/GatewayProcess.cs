@@ -15,10 +15,24 @@ namespace Fomoxa.Rpc.Tests
         private readonly Process process;
         private readonly string folder;
 
-        private GatewayProcess(Process process, string folder)
+        private readonly StringBuilder lines;
+
+        private GatewayProcess(Process process, string folder, StringBuilder lines)
         {
             this.process = process;
             this.folder = folder;
+            this.lines = lines;
+        }
+
+        public string Output
+        {
+            get
+            {
+                lock (lines)
+                {
+                    return lines.ToString();
+                }
+            }
         }
 
         public static GatewayProcess Start(ushort clientPort, DirectoryProcess directory, ushort webSocketPort = 0)
@@ -81,7 +95,7 @@ gateway = {{ env = ""FOMOXA_TEST_GATEWAY_KEY"" }}
                 }
             }
 
-            return new GatewayProcess(process, folder);
+            return new GatewayProcess(process, folder, lines);
         }
 
         public void Dispose()
