@@ -1,6 +1,6 @@
 {
   "name": "com.fomoxa.rpc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Fomoxa RPC",
   "description": "fRPC for Unity: typed calls between Unity and the services of a Fomoxa cluster, over the transports of com.fomoxa.networking.",
   "unity": "6000.5",
