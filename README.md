@@ -4,8 +4,8 @@
 
 | | |
 |---|---|
-| Version | 0.1.1 |
-| Needs | `com.fomoxa.networking` 0.3.0 |
+| Version | 0.1.2 |
+| Needs | `com.fomoxa.networking` 0.3.1 |
 | Unity | 6000.5 or later |
 | License | Apache-2.0 |
 
