@@ -12,7 +12,7 @@ namespace Fomoxa.Rpc.Editor
     [InitializeOnLoad]
     public sealed class FRpcSourceStep : IFomoxaSourceStep
     {
-        public const string CoreVersion = "0.3.2";
+        public const string CoreVersion = "0.3.3";
         public const string EmptyModelsFolder = "FRpcModels";
         public const string SystemModelsCopy = "FomoxaRpcSystemModels";
 
