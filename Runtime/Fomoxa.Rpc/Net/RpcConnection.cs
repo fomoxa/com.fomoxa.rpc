@@ -618,7 +618,9 @@ namespace Fomoxa.Rpc.Net
             }
             var status = outcome == null
                 ? Typed.Refused(next.Refusal)
-                : outcome.Status ?? Status.Internal($"{options.Credential!.Method.Name} received {outcome.Kind}");
+                : outcome.Status is { } refusal
+                    ? Typed.Read(refusal, options.Credential!.Details)
+                    : Status.Internal($"{options.Credential!.Method.Name} received {outcome.Kind}");
             Resolve(session, new ConnectException(status));
         }
 

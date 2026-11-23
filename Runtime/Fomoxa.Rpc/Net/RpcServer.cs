@@ -284,7 +284,7 @@ namespace Fomoxa.Rpc.Net
                         transport.Dispose();
                         return;
                     }
-                    Launch(() => transport, (transport as TcpTransport)?.Socket.RemoteEndPoint, transport.Dispose);
+                    Launch(() => transport, PeerOf(transport), transport.Dispose);
                     continue;
                 }
                 if (readiness != null)
@@ -298,6 +298,9 @@ namespace Fomoxa.Rpc.Net
                 waker.Clear();
             }
         }
+
+        private static EndPoint? PeerOf(ITransport transport) =>
+            transport is IPeerAddress declared ? declared.PeerAddress : (transport as TcpTransport)?.Socket.RemoteEndPoint;
 
         private void Launch(Func<ITransport> open, EndPoint? peer, Action discard)
         {
@@ -360,7 +363,7 @@ namespace Fomoxa.Rpc.Net
                 var inbox = new Inbox(null);
                 var driver = new Driver(session, inbox, policy, message => observer.Plain(connection, message), null);
                 driven.Add((connection, inbox, driver));
-                observer.Opened(connection, (transport as TcpTransport)?.Socket.RemoteEndPoint);
+                observer.Opened(connection, PeerOf(transport));
             }
         }
     }
